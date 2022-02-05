@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom"
 import { GetProfileData } from "../../API/AllApi";
 
 const Cart = () => {
+  const token = JSON.parse(localStorage.getItem("jwt"));
   const history = useHistory()
   const [data, setData] = useState();
   const [disabled, setDisabled] = useState(true);
@@ -59,10 +60,14 @@ const Cart = () => {
   };
 
 
-    useEffect(() => {
-      GetProfileData()
-        .then((res) => setData(res.data))
-        .catch((err) => console.log(err));
+
+  useEffect(() => {
+    if (token) {
+         GetProfileData()
+           .then((res) => setData(res.data))
+           .catch((err) => console.log(err));
+      }
+     
       
       
     }, []);
@@ -71,7 +76,9 @@ const Cart = () => {
   const checkOut = () => {
     if (transport.transportSystem.length === 0) {
       window.alert("Please Add Transport System");
-    } else {
+    } else if(!token){
+      history.push("/user/checkout")
+    }else {
       dispatch({ type: "transport_add", value: { ...transport } });
       history.push("/user/checkout")
       dispatch({ type: "ADD_USER_DATA", value: data });
@@ -125,13 +132,13 @@ const Cart = () => {
               </div>
 
               
-              <button
+             {ItemList?.item.length !== 0 &&  (<button
                 className="btn btn-primary btn-block my-1"
                 onClick={checkOut}
                 
               >
                 Check out
-              </button>
+              </button>)}
             </div>
           </div>
         </div>
