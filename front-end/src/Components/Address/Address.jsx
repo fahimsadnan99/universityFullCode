@@ -1,12 +1,21 @@
 import React from 'react'
 import "./Address.css"
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import Layout from "../Layout/Layout"
 import Navbar from '../Navbar/Navbar';
 import { useForm } from "react-hook-form";
+import { successMsg } from "../../utils/message";
+import { useHistory } from 'react-router-dom';
 
-const Address = () => {
 
+
+
+
+const Address = ( ) => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const user = useSelector((state) => state.user)
+  console.log(user);
  const {
    register,
    formState: { errors },
@@ -14,7 +23,7 @@ const Address = () => {
    reset,
    watch,
  } = useForm({
-   defaultValues: { name: "", phone: "", city: "", address: "", postCode : "" },
+   defaultValues: { name: `${user.name}`, phone: `${user.phone}`, city: `${user.city}`, address: `${user.address}`, postCode : `${user.postCode}` },
  });
 
 
@@ -22,7 +31,9 @@ const Address = () => {
     
 
     const onSubmit = (e) => {
-      console.log(e);
+      successMsg(true, "Product Perchanges Successful")
+      dispatch({ type: "REMOVE_ALL_ITEM" });
+       history.push("/")
      
       reset();
     };
@@ -41,7 +52,6 @@ const Address = () => {
      };
     
     
-      console.log(ItemList);
     
     return (
       <Layout title="address">

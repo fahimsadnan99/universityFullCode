@@ -54,12 +54,13 @@ const App = () => {
           <UserDeshbord></UserDeshbord>
         </PrivateRoute>
 
-       
+        <PrivateRoute exact path="/user/checkout">
+          <Address></Address>
+        </PrivateRoute>
 
         <AdminRouter exact path="/admin/deshbord">
           <AdminDashbord></AdminDashbord>
         </AdminRouter>
-        
       </Switch>
       <Footer></Footer>
     </>

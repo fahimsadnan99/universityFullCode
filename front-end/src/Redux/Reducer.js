@@ -2,7 +2,8 @@ import { ErrorMsg } from "../utils/message";
 const myState = {
   item: [],
   transportSystem: "",
-  transportFee: 0
+  transportFee: 0,
+  user : {}
 };
 
 const ItemList = (state = myState, actions) => {
@@ -58,6 +59,17 @@ break
         transportSystem: actions.value.transportSystem,
         transportFee: actions.value.transportFee,
       };
+
+    case "ADD_USER_DATA" : 
+      return {
+        ...state,
+        user: actions.value
+      };
+    case "REMOVE_ALL_ITEM": 
+      return {
+        ...state,
+        item : []
+      }
     
 break
     default:
