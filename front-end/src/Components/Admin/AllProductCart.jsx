@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Swal from "sweetalert2";
-
+import { getProduct,deleteProduct } from "../../API/AllApi";
 
 
 const AllProductCart = () => {
-    const img =
-      "https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c291cmNlJTIwY29kZXxlbnwwfHwwfHw%3D&w=1000&q=80";
+  const [product, setProduct] = useState();
+  const [change,setChange] = useState(false);
    
-   
-    const handleDelete = () => {
+  const handleDelete = (id) => {
+      
+    console.log(id)
         Swal.fire({
           title: "Are you sure?",
           text: "You won't be able to revert this!",
@@ -19,21 +20,66 @@ const AllProductCart = () => {
           confirmButtonText: "Yes, delete it!",
         }).then((result) => {
           if (result.isConfirmed) {
-            Swal.fire("Deleted!", "Your Product has been deleted.", "success");
+             deleteProduct(id)
+               .then(res => {
+                 Swal.fire(res.data.message)
+                 setChange(!change);
+               });
+               
           }
         });
     }
+  
+    useEffect(() => {
+      getProduct()
+        .then((res) => setProduct(res.data))
+        .catch((err) => console.log(err));
+    }, [change]);
+   useEffect(() => {
+     getProduct()
+       .then((res) => setProduct(res.data))
+       .catch((err) => console.log(err));
+   }, []);
     
     return (
-      <div className=" my-2">
-        <div className="cart_Card">
-                <img src={img} alt="img" className="img-fluid" width={"70px"}></img>
-                <h5>Name</h5>
-          <h5>Price</h5>
-          <button className="btn btn-danger" onClick={handleDelete}>
-            <i class="fa fa-trash"></i>
-          </button>
-        </div>
+      <div className=" mb-2">
+       
+     
+
+        <table class="table">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Image</th>
+              <th scope="col">Name</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              product && product.map(item => {
+                return (
+                  <tr key={item._id}>
+                    <td>
+                      <img
+                        src={item.photo}
+                        alt={item.name}
+                        style={{ width: "50px" }}
+                      />
+                    </td>
+                    <td>{ item.name}</td>
+                    <td>
+                      <button className="btn btn-danger" onClick={()=> handleDelete(item._id)}>
+                        <i class="fa fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            }
+           
+           
+          </tbody>
+        </table>
       </div>
     );
 }

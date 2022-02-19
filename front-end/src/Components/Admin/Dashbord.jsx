@@ -10,7 +10,7 @@ import AllProduct from "./AllProduct";
 const AdminDashbord = () => {
   const [allProductToggleBtn,setAllProductToggleBtn] = useState(false)
   const { name, email, role } = userInfo();
-  console.log(allProductToggleBtn);
+ 
   return (
     <>
       <Layout title="Admin dashbord">
@@ -56,18 +56,20 @@ const AdminDashbord = () => {
               </li>
             </ul>
           </div>
-          <div className="col-md-6 offset-md-1">
-            <ul class="list-group">
-              <li class="list-group-item active">User Information</li>
-              <li class="list-group-item">Name : {name} </li>
-              <li class="list-group-item">Email : {email}</li>
-              <li class="list-group-item">Role : {role} </li>
-            </ul>
-          </div>
-
-          <div className="col-12 col-md-8 offset-md-2">
-            {allProductToggleBtn && <AllProduct></AllProduct>}
-          </div>
+          {!allProductToggleBtn ? (
+            <div className="col-md-6 offset-md-1">
+              <ul class="list-group">
+                <li class="list-group-item active">User Information</li>
+                <li class="list-group-item">Name : {name} </li>
+                <li class="list-group-item">Email : {email}</li>
+                <li class="list-group-item">Role : {role} </li>
+              </ul>
+            </div>
+          ) : (
+            <div className="col-8 ">
+              {allProductToggleBtn && <AllProduct></AllProduct>}
+            </div>
+          )}
         </div>
       </Layout>
     </>

@@ -37,6 +37,8 @@ password.current = watch("password", "");
        error: false,
      });
 
+     console.log(e)
+
   Login(e)
     .then(res => {
       authenticate(res.data.Token, () => {
@@ -68,22 +70,23 @@ password.current = watch("password", "");
         <Navbar></Navbar>
         <div className="container mt-4">
           <div className="row">
-            <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-              <div className="card signup_Wrapper p-3 my-5">
-                <h4 className="text-center mb-2">Signin</h4>
+            <div className="col-lg-6  col-md-8  col-12 animate__bounceInDown">
+              <div className=" signup_Wrapper p-3 my-5">
+                <p className="signupText mb-2 cssanimation lePeek sequence">
+                  Signin
+                </p>
                 <Link to="/signup" className="text-center">
                   Create An Account?
                 </Link>
                 <form
                   onSubmit={handleSubmit(onSubmit)}
-                  
                   style={{ textTransform: "capitalize" }}
                 >
                   {loadingStatus(massageShow.loading)}
                   <div className="input_field_div">
                     <input
                       type="email"
-                      className="form-control input_field my-2"
+                      className="form-control input_field my-3"
                       {...register("email", {
                         required: "Email is Require",
                         pattern: {
@@ -104,7 +107,7 @@ password.current = watch("password", "");
                   <div className="input_field_div">
                     <input
                       type="password"
-                      className="form-control input_field my-2"
+                      className="form-control input_field my-3"
                       {...register("password", {
                         required: "Password is Require",
                         minLength: {
@@ -124,13 +127,18 @@ password.current = watch("password", "");
                   <br></br>
                   <div className="text-center">
                     <button
-                      className="btn btn-outline-danger text-center"
+                      className="btn btn-outline-primary text-center"
                       disabled={massageShow.disabled}
                     >
                       Sign In
                     </button>
                   </div>
                 </form>
+              </div>
+            </div>
+            <div className="col-lg-6 col-md-4 col-12 ">
+              <div className="Signup_img animate__flip">
+                <img src="./img/signin.gif" alt="signup-img"></img>
               </div>
             </div>
           </div>

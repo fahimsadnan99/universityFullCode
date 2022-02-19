@@ -51,17 +51,17 @@ const Signup = () => {
   return (
     <Layout title="Signin Page">
       <Navbar></Navbar>
-      <div className="container">
+      <div className="my-5 container">
         <div className="row">
-          <div className="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
-            <div className="card signup_Wrapper p-3 my-5">
-              <h4 className="text-center mb-2">Signup</h4>
+          <div className="col-lg-6  col-md-8  col-12 animate__flipInX">
+            <div className=" signup_Wrapper p-3 mb-5">
+              <p className="mb-2 signupText cssanimation lePeek sequence">
+                Signup{" "}
+              </p>
               <Link to="/signin" className="text-center">
                 Already Have An Account?
               </Link>
-              <div>
-                {loadingStatus(values.loading)}
-              </div>
+              <div>{loadingStatus(values.loading)}</div>
               <form
                 onSubmit={handleSubmit(onSubmit)}
                 style={{ textTransform: "capitalize" }}
@@ -69,7 +69,7 @@ const Signup = () => {
                 <div className="input_field_div">
                   <input
                     type="name"
-                    className="form-control input_field my-2"
+                    className="form-control input_field my-3"
                     {...register("name", {
                       required: "Name is Require",
                       minLength: {
@@ -87,7 +87,7 @@ const Signup = () => {
                 <div className="input_field_div">
                   <input
                     type="email"
-                    className="form-control input_field my-2"
+                    className="form-control input_field my-3"
                     {...register("email", {
                       required: "Email is Require",
                       pattern: {
@@ -106,7 +106,7 @@ const Signup = () => {
                 <div className="input_field_div">
                   <input
                     type="password"
-                    className="form-control input_field my-2"
+                    className="form-control input_field my-3"
                     {...register("password", {
                       required: "Password is Require",
                       minLength: {
@@ -126,7 +126,7 @@ const Signup = () => {
                 <div className="input_field_div">
                   <input
                     type="password"
-                    className="form-control input_field my-2"
+                    className="form-control input_field my-3"
                     {...register("cpassword", {
                       required: "Password Not Match",
                       validate: (value) =>
@@ -144,11 +144,16 @@ const Signup = () => {
 
                 <br></br>
                 <div className="text-center">
-                  <button className="btn btn-outline-danger text-center">
+                  <button className="btn btn-outline-primary text-center">
                     Sign Up
                   </button>
                 </div>
               </form>
+            </div>
+          </div>
+          <div className="col-lg-6 col-md-4 col-12 animate__slideInRight">
+            <div className="Signup_img">
+              <img src="./img/signup.gif" alt="signup-img"></img>
             </div>
           </div>
         </div>
